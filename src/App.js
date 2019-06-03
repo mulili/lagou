@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 import { Button, List } from 'antd-mobile';
+
+import { addName, subtractName, restore } from './actionCreator';
+
 import './App.less';
 
 class App extends React.Component {
@@ -9,48 +15,31 @@ class App extends React.Component {
     this.state = {};
   }
 
-  onAddNames = () => {
-    const { store } = this.props;
-    store.dispatch({
-      type: 'Add',
-      payload: `xiaoming${Math.random()}`,
-    });
-  }
-
-  onSubtractNames=() => {
-    const { store } = this.props;
-    store.dispatch({
-      type: 'Subtract',
-    });
-  }
-
-  onRestore=() => {
-    const { store } = this.props;
-    store.dispatch({
-      type: 'Restore',
-    });
-  }
-
   render() {
     const { Item } = List;
-    const { store } = this.props;
+    /* eslint-disable */
+    const {
+      nameList, addName, subtractName, restore
+    } = this.props;
+    console.log(this.props)
+    /* eslint-disable */
     return (
       <div className="App">
         <Button
           type="primary"
-          onClick={this.onAddNames}
+          onClick={addName}
         >
         addName
         </Button>
         <Button
           type="warning"
-          onClick={this.onSubtractNames}
+          onClick={subtractName}
         >
         subtractName
         </Button>
         <Button
           type="default"
-          onClick={this.onRestore}
+          onClick={restore}
         >
         Restore
         </Button>
@@ -59,12 +48,12 @@ class App extends React.Component {
           renderHeader={() => 'Name list start'}
           renderFooter={() => 'Name list end'}
         >
-          {store.getState().nameList.map(key => (
+          {nameList.map(key => (
             <Item
               type="Button"
               key={key}
             >
-              {`Hello,${key},welcome to study`}
+              {`Hello,${key}`}
             </Item>
           ))}
         </List>
@@ -74,7 +63,23 @@ class App extends React.Component {
   }
 }
 App.propTypes = {
-  store: PropTypes.shape.isRequired,
+  nameList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  addName: PropTypes.func.isRequired,
+  subtractName: PropTypes.func.isRequired,
+  restore: PropTypes.func.isRequired
 };
+const mapStateToProps = state => ({
+  nameList: state.name.nameList
+});
 
-export default App;
+// const mapDispatchToProps = dispatch => bindActionCreators({
+//   addName, subtractName, restore
+// }, dispatch);
+
+const mapDispatchToProps = {
+  addName, subtractName, restore
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

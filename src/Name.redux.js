@@ -1,14 +1,16 @@
-const reducer = (state = { nameList: ['muli', 'yuhui', 'xiaoxin'] }, action) => {
+import Const from './const';
+
+const name = (state = { nameList: ['muli', 'yuhui', 'xiaoxin'] }, action) => {
   const initState = Object.assign({}, state);
   switch (action.type) {
-    case 'Add':
+    case Const.ADD:
       return { nameList: [...state.nameList, action.payload] };
-    case 'Subtract':
+    case Const.SUBTRACT:
       return { nameList: [...state.nameList.slice(0, -1)] };
-    case 'Restore':
+    case Const.RESTORE:
       return initState;
     default:
       return state;
   }
 };
-export default reducer;
+export default name;
