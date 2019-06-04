@@ -1,14 +1,19 @@
 
 import Const from './const';
 
-const auth = (initState = { isAuth: false, user: 'muli' }, action) => {
+const initState = {
+  user: 'Muli',
+  age: 26,
+  isAuth: false
+};
+const auth = (state = initState, action) => {
   switch (action.type) {
     case Const.LOGIN:
-      return { ...initState, isAuth: true };
+      return { ...state, isAuth: true };
     case Const.LOGOUT:
-      return { ...initState, isAuth: false };
+      return { ...state, isAuth: false };
     default:
-      return initState;
+      return state;
   }
 };
 

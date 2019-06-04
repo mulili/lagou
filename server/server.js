@@ -11,13 +11,13 @@ mongoose.connection.on('connected', () => {
 const app = express();
 // 类似于mysql, mongo 里有文档 、字段的概念
 const User = mongoose.model('user', new mongoose.Schema({
-  name: { type: String, require: true },
-  age: { type: String, require: true },
+  user: { type: String, require: true },
+  age: { type: String, require: true }
 }));
 
 User.create({
-  name: 'yuhui',
-  age: 20,
+  user: 'yuhui',
+  age: 20
 }, (err, doc) => {
   if (!err) {
     console.log(doc);
@@ -32,7 +32,7 @@ User.remove({ age: 18 }, (err, doc) => {
     console.log(err);
   }
 });
-User.update({ name: 'yuhui' }, { age: 18 }, (err, doc) => {
+User.update({ user: 'yuhui' }, { age: 18 }, (err, doc) => {
   if (!err) {
     console.log(doc);
   } else {
@@ -44,11 +44,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/data', (req, res) => {
-  User.findOne({ name: 'yuhui' }, (err, doc) => {
+  User.findOne({ user: 'yuhui' }, (err, doc) => {
     res.json(doc);
   });
 });
 
-app.listen(9000, () => {
-  console.log('Node app start at port 9000');
+app.listen(9093, () => {
+  console.log('Node app start at port 9093');
 });
