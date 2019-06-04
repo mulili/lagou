@@ -1,32 +1,55 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   BrowserRouter, Route, Link, Switch, Redirect
 } from 'react-router-dom';
+import { Button } from 'antd-mobile';
+
+import * as action from './actionCreator';
 import App from './App';
 
+const App1 = () => <h2>App1</h2>;
 const App2 = () => <h2>App2</h2>;
-const App3 = () => <h2>App3</h2>;
-const Dashboard = () => (
-  <BrowserRouter>
-    <React.Fragment>
-      <ul>
-        <li>
-          <Link to="./">App</Link>
-        </li>
-        <li>
-          <Link to="./app1">App1</Link>
-        </li>
-        <li>
-          <Link to="./app2">App2</Link>
-        </li>
-      </ul>
-      <Route path="/" exact component={App} />
-      <Route path="/app1" component={App2} />
-      <Route path="/app2" component={App3} />
-    </React.Fragment>
-  </BrowserRouter>
+const Dashboard = (props) => {
+  const { match, auth, logout } = props;
+  console.log(props);
+  const dashboard = (
+    <BrowserRouter>
+      <React.Fragment>
+        <ul>
+          <li>
+            <Link to={`${match.path}/app`}>App</Link>
+          </li>
+          <li>
+            <Link to={`${match.path}/app1`}>App1</Link>
+          </li>
+          <li>
+            <Link to={`${match.path}/app2`}>App2</Link>
+          </li>
+        </ul>
+        <Button type="warning" onClick={logout}>Logout</Button>
+        <Route path={`${match.path}/app`} exact component={App} />
+        <Route path={`${match.path}/app1`} component={App1} />
+        <Route path={`${match.path}/app2`} component={App2} />
+      </React.Fragment>
+    </BrowserRouter>
+  );
+  return auth.isAuth ? dashboard : <Redirect to="/" />;
+};
 
-);
+Dashboard.propTypes = {
+  match: PropTypes.shape().isRequired,
+  auth: PropTypes.shape().isRequired,
+  logout: PropTypes.func.isRequired
+};
 
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
-export default Dashboard;
+const mapDispatchToProps = {
+  logout: action.logout
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

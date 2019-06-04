@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { Button, List } from 'antd-mobile';
 
-import { addName, subtractName, restore } from './actionCreator';
+import * as action from './actionCreator';
 
 import './App.less';
 
@@ -17,12 +17,9 @@ class App extends React.Component {
 
   render() {
     const { Item } = List;
-    /* eslint-disable */
     const {
       nameList, addName, subtractName, restore
     } = this.props;
-    console.log(this.props)
-    /* eslint-disable */
     return (
       <div className="App">
         <Button
@@ -34,6 +31,7 @@ class App extends React.Component {
         <Button
           type="warning"
           onClick={subtractName}
+          disabled={nameList.length === 0}
         >
         subtractName
         </Button>
@@ -69,17 +67,13 @@ App.propTypes = {
   restore: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  nameList: state.name.nameList
+  nameList: state.name
 });
 
-// const mapDispatchToProps = dispatch => bindActionCreators({
-//   addName, subtractName, restore
-// }, dispatch);
-
 const mapDispatchToProps = {
-  addName, subtractName, restore
-}
-
-
+  addName: action.addName,
+  subtractName: action.subtractName,
+  restore: action.restore
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

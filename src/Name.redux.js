@@ -1,16 +1,16 @@
 import Const from './const';
 
-const name = (state = { nameList: ['muli', 'yuhui', 'xiaoxin'] }, action) => {
-  const initState = Object.assign({}, state);
+const name = (nameList = ['muli', 'yuhui', 'xiaoxin'], action) => {
+  const initState = Object.assign({}, nameList);
   switch (action.type) {
     case Const.ADD:
-      return { nameList: [...state.nameList, action.payload] };
+      return [...nameList, action.payload];
     case Const.SUBTRACT:
-      return { nameList: [...state.nameList.slice(0, -1)] };
+      return [...nameList.slice(0, -1)];
     case Const.RESTORE:
       return initState;
     default:
-      return state;
+      return nameList;
   }
 };
 export default name;
