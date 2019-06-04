@@ -13,10 +13,10 @@ const App1 = () => <h2>App1</h2>;
 const App2 = () => <h2>App2</h2>;
 const Dashboard = (props) => {
   const { match, auth, logout } = props;
-  console.log(props);
   const dashboard = (
     <BrowserRouter>
       <React.Fragment>
+        <Button type="warning" onClick={logout}>Logout</Button>
         <ul>
           <li>
             <Link to={`${match.path}/app`}>App</Link>
@@ -28,10 +28,11 @@ const Dashboard = (props) => {
             <Link to={`${match.path}/app2`}>App2</Link>
           </li>
         </ul>
-        <Button type="warning" onClick={logout}>Logout</Button>
-        <Route path={`${match.path}/app`} exact component={App} />
-        <Route path={`${match.path}/app1`} component={App1} />
-        <Route path={`${match.path}/app2`} component={App2} />
+        <Switch>
+          <Route path={`${match.path}/app`} component={App} />
+          <Route path={`${match.path}/app1`} component={App1} />
+          <Route path={`${match.path}/app2`} component={App2} />
+        </Switch>
       </React.Fragment>
     </BrowserRouter>
   );

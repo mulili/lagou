@@ -6,14 +6,14 @@ import {
 import { Provider } from 'react-redux';
 
 import {
-  BrowserRouter, Route, Link, Switch, Redirect
+  BrowserRouter as Router, Route, Switch, Redirect
 } from 'react-router-dom';
 import thunk from 'redux-thunk';
 
 import name from './Name.redux';
 import auth from './Auth.redux';
-// import Auth from './Auth';
-import Login from './Login';
+
+import Auth from './Auth';
 import Dashboard from './Dashboard';
 
 
@@ -32,14 +32,13 @@ ReactDOM.render(
   <Provider
     store={store}
   >
-    <BrowserRouter>
+    <Router>
       <Switch>
-        <Route path="/" exact component={Login} />
+        <Route path="/" exact component={Auth} />
         <Route path="/dashboard" component={Dashboard} />
         <Redirect to="/dashboard" />
       </Switch>
-
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById('root'),
 );

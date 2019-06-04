@@ -29,7 +29,7 @@ class App extends React.Component {
         addName
         </Button>
         <Button
-          type="warning"
+          type="ghost"
           onClick={subtractName}
           disabled={nameList.length === 0}
         >
