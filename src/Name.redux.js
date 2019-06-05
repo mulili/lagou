@@ -1,7 +1,7 @@
 import Const from './const';
 
 const name = (nameList = ['muli', 'yuhui', 'xiaoxin'], action) => {
-  const initState = Object.assign({}, nameList);
+  const initState = ['muli', 'yuhui', 'xiaoxin'].concat();
   switch (action.type) {
     case Const.ADD:
       return [...nameList, action.payload];

@@ -22,10 +22,10 @@ import * as serviceWorker from './serviceWorker';
 import './index.css';
 
 const store = createStore(combineReducers({ name, auth }), compose(
+  applyMiddleware(thunk),
   /* eslint-disable no-underscore-dangle */
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   /* eslint-enable */
-  applyMiddleware(thunk),
 ));
 
 ReactDOM.render(

@@ -12,6 +12,8 @@ const auth = (state = initState, action) => {
       return { ...state, isAuth: true };
     case Const.LOGOUT:
       return { ...state, isAuth: false };
+    case Const.GETUSERDATA:
+      return { ...state, ...action.payload };
     default:
       return state;
   }
