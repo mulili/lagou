@@ -24,22 +24,24 @@ const logout = () => ({
   type: Const.LOGOUT
 });
 
-const UerData = data => ({
-  type: Const.GETUSERDATA,
-  payload: data
-});
-
 const getUerData = () => (
   (dispatch) => {
-    dispatch({ type: 'Start' });
+    dispatch({
+      type: Const.GETUSERDATA_PENDING
+    });
     return axios.get('/data')
       .then((res) => {
         if (res.status === 200) {
-          dispatch(UerData(res.data));
+          dispatch({
+            type: Const.GETUSERDATA_SUCCESS,
+            payload: res.data
+          });
         }
       })
-      .finally(() => {
-        dispatch({ type: 'End' });
+      .catch(() => {
+        dispatch({
+          type: Const.GETUSERDATA_FAILED
+        });
       });
   }
 );

@@ -4,12 +4,12 @@ import {
   createStore, applyMiddleware, compose, combineReducers
 } from 'redux';
 import { Provider } from 'react-redux';
-
 import {
   BrowserRouter as Router, Route, Switch, Redirect
 } from 'react-router-dom';
 import thunk from 'redux-thunk';
 
+import './config';
 import name from './Name.redux';
 import auth from './Auth.redux';
 

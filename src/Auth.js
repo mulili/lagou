@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ActionCreator } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
