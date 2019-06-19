@@ -18,8 +18,10 @@ axios.interceptors.request.use(
 // axios response interceptors
 axios.interceptors.response.use(
   // do something before response
-  // Toast.hide();
-  response => response,
+  (response) => {
+    Toast.hide();
+    return response;
+  },
   // do something after response error
   (error) => {
     console.error(error);

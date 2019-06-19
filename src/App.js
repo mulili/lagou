@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import * as action from './actionCreator';
 
 import './App.less';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};

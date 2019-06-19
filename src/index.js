@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
   createStore, applyMiddleware, compose, combineReducers
@@ -9,15 +9,19 @@ import {
 } from 'react-router-dom';
 import thunk from 'redux-thunk';
 
+import * as serviceWorker from './serviceWorker';
+
 import './config';
+
 import name from './Name.redux';
 import auth from './Auth.redux';
 
+import Login from './container/login';
+import Register from './container/register';
 import Auth from './Auth';
+
 import Dashboard from './Dashboard';
 
-
-import * as serviceWorker from './serviceWorker';
 
 import './index.css';
 
@@ -34,9 +38,9 @@ ReactDOM.render(
   >
     <Router>
       <Switch>
-        <Route path="/" exact component={Auth} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Redirect to="/dashboard" />
+        <Route path="/login" exact component={Login} />
+        <Route path="/register" component={Register} />
+        <Redirect to="/login" />
       </Switch>
     </Router>
   </Provider>,

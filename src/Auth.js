@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { Button } from 'antd-mobile';
 
 import * as action from './actionCreator';
 
-class Auth extends React.Component {
+class Auth extends Component {
   componentDidMount() {
 
   }
