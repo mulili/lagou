@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   createStore, applyMiddleware, compose, combineReducers
@@ -18,6 +18,7 @@ import auth from './Auth.redux';
 
 import Login from './container/login';
 import Register from './container/register';
+import AuthRoute from './component/authroute';
 import Auth from './Auth';
 
 import Dashboard from './Dashboard';
@@ -37,6 +38,7 @@ ReactDOM.render(
     store={store}
   >
     <Router>
+      <AuthRoute />
       <Switch>
         <Route path="/login" exact component={Login} />
         <Route path="/register" component={Register} />

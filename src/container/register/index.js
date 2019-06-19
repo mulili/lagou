@@ -11,6 +11,9 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: '',
+      pwd: '',
+      confirmPwd: '',
       type: 'genius'
     };
   }
@@ -21,8 +24,13 @@ class Register extends Component {
   }
 
   handleRegister=() => {
-    const { history } = this.props;
-    history.push('/register');
+    console.log(this.state);
+  }
+
+  handleChange=(key, value) => {
+    this.setState({
+      [key]: value
+    });
   }
 
   render() {
@@ -33,21 +41,23 @@ class Register extends Component {
         <Logo />
         <WingBlank>
           <List>
-            <InputItem type="text">UserName</InputItem>
+            <InputItem type="text" onChange={value => this.handleChange('user', value)}>UserName</InputItem>
             <WhiteSpace />
-            <InputItem type="password">Password</InputItem>
+            <InputItem type="password" onChange={value => this.handleChange('pwd', value)}>Password</InputItem>
             <WhiteSpace />
             <WhiteSpace />
-            <InputItem type="password">Confirm</InputItem>
+            <InputItem type="password" onChange={value => this.handleChange('confirmPwd', value)}>Confirm</InputItem>
             <WhiteSpace />
             <RadioItem
               checked={type === 'boss'}
+              onChange={() => this.handleChange('type', 'boss')}
             >
              Boss
             </RadioItem>
             <WhiteSpace />
             <RadioItem
               checked={type === 'genius'}
+              onChange={() => this.handleChange('type', 'boss')}
             >
             Genius
             </RadioItem>
