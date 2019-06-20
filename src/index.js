@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  createStore, applyMiddleware, compose, combineReducers
+  createStore, applyMiddleware, compose
 } from 'redux';
 import { Provider } from 'react-redux';
 import {
@@ -13,20 +13,14 @@ import * as serviceWorker from './serviceWorker';
 
 import './config';
 
-import name from './Name.redux';
-import auth from './Auth.redux';
-
+import reducer from './reducer';
 import Login from './container/login';
 import Register from './container/register';
 import AuthRoute from './component/authroute';
-import Auth from './Auth';
-
-import Dashboard from './Dashboard';
-
 
 import './index.css';
-
-const store = createStore(combineReducers({ name, auth }), compose(
+// combineReducers({  })
+const store = createStore(reducer, compose(
   applyMiddleware(thunk),
   /* eslint-disable no-underscore-dangle */
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import {
   List, Button, InputItem, WingBlank, WhiteSpace, Radio
 } from 'antd-mobile';
 import Logo from '../../component/logo';
+import { register } from '../../redux/getAction';
+import './index.less';
 
 class Register extends Component {
   constructor(props) {
@@ -24,7 +27,10 @@ class Register extends Component {
   }
 
   handleRegister=() => {
-    console.log(this.state);
+    /* eslint-disable no-shadow */
+    const { register } = this.props;
+    /* eslint-enable no-shadow */
+    register(this.state);
   }
 
   handleChange=(key, value) => {
@@ -35,45 +41,48 @@ class Register extends Component {
 
   render() {
     const { type } = this.state;
+    const { msg } = this.props;
     const { RadioItem } = Radio;
     return (
       <div>
         <Logo />
         <WingBlank>
           <List>
-            <InputItem type="text" onChange={value => this.handleChange('user', value)}>UserName</InputItem>
+            {msg ? <p className="err-msg">{msg}</p> : null}
+            <InputItem type="text" onChange={value => this.handleChange('user', value)}>用户名</InputItem>
             <WhiteSpace />
-            <InputItem type="password" onChange={value => this.handleChange('pwd', value)}>Password</InputItem>
+            <InputItem type="password" onChange={value => this.handleChange('pwd', value)}>密码</InputItem>
             <WhiteSpace />
             <WhiteSpace />
-            <InputItem type="password" onChange={value => this.handleChange('confirmPwd', value)}>Confirm</InputItem>
+            <InputItem type="password" onChange={value => this.handleChange('confirmPwd', value)}>确认密码</InputItem>
             <WhiteSpace />
             <RadioItem
               checked={type === 'boss'}
               onChange={() => this.handleChange('type', 'boss')}
             >
-             Boss
+             招聘
             </RadioItem>
             <WhiteSpace />
             <RadioItem
               checked={type === 'genius'}
               onChange={() => this.handleChange('type', 'boss')}
             >
-            Genius
+            求职
             </RadioItem>
-            <WhiteSpace />
-            <Button
-              type="primary"
-              onClick={this.handleLogin}
-            >
-            Login
-            </Button>
+
             <WhiteSpace />
             <Button
               type="primary"
               onClick={this.handleRegister}
             >
-            Register
+            注册
+            </Button>
+            <WhiteSpace />
+            <Button
+              type="primary"
+              onClick={this.handleLogin}
+            >
+            登录
             </Button>
           </List>
         </WingBlank>
@@ -83,6 +92,12 @@ class Register extends Component {
   }
 }
 Register.propTypes = {
-  history: PropTypes.shape().isRequired
+  history: PropTypes.shape().isRequired,
+  register: PropTypes.func.isRequired,
+  msg: PropTypes.string.isRequired
 };
-export default withRouter(Register);
+const mapStateToProps = state => ({
+  msg: state.user.msg
+});
+const mapDispatchToProps = { register };
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Register));

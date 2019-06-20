@@ -27,17 +27,17 @@ class Login extends Component {
         <Logo />
         <WingBlank>
           <List />
-          <InputItem type="text">UserName</InputItem>
+          <InputItem type="text">用户名</InputItem>
           <WhiteSpace />
-          <InputItem type="password">Password</InputItem>
+          <InputItem type="password">密码</InputItem>
           <WhiteSpace />
-          <Button type="primary">Login</Button>
+          <Button type="primary">登录</Button>
           <WhiteSpace />
           <Button
             type="primary"
             onClick={this.handleRegister}
           >
-            Register
+            注册
           </Button>
         </WingBlank>
       </div>

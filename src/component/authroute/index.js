@@ -12,7 +12,6 @@ class AuthRoute extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: ''
     };
   }
 
@@ -23,9 +22,6 @@ class AuthRoute extends Component {
     axios.get('./user/info')
       .then((res) => {
         if (res.status === 200) {
-          this.setState({
-            code: res.data.code
-          });
           if (res.data.code === 0) {
             // 有登录信息
           } else {
@@ -37,14 +33,7 @@ class AuthRoute extends Component {
   }
 
   render() {
-    const { code } = this.state;
-    return (
-      <div>
-        用户状态
-        {' '}
-        {code}
-      </div>
-    );
+    return null;
   }
 }
 AuthRoute.propTypes = {
