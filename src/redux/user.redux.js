@@ -15,6 +15,10 @@ const user = (state = initState, action) => {
       return {
         ...state, msg: '', isAuth: true, ...action.payload, redirectTo: getRedirectPath(action.payload)
       };
+    case Const.LOGIN_SUCCESS:
+      return {
+        ...state, msg: '', isAuth: true, ...action.payload, redirectTo: getRedirectPath(action.payload)
+      };
     case Const.ERROR_MSG:
       return { ...state, msg: action.payload.msg, isAuth: false };
     default:

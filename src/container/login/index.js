@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 import {
   List, InputItem, Button, WingBlank, WhiteSpace
@@ -48,6 +48,7 @@ render() {
       <Logo />
       <WingBlank>
         <List />
+        {user.redirectTo ? <Redirect to={user.redirectTo} /> : null}
         {user.msg ? <p className="err-msg">{user.msg}</p> : null}
         <InputItem
           type="text"

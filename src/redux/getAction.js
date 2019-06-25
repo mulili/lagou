@@ -20,9 +20,9 @@ const login = ({ user, pwd }) => (
     dispatch({
       type: Const.LOGIN_PENDING
     });
-    return axios.post('/login', { user, pwd })
+    return axios.post('/user/login', { user, pwd })
       .then((res) => {
-        if (res.response === 200 && res.data.code === 0) {
+        if (res.status === 200 && res.data.code === 0) {
           dispatch({
             type: Const.LOGIN_SUCCESS,
             payload: res.data

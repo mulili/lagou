@@ -14,6 +14,16 @@ Router.get('/list', (req, res) => (
 ));
 // 密码加盐
 const md5Pwd = pwd => utils.md5(utils.md5(`${pwd}63235#%^%&^*&fkorsmkfmsf@!#@#$34234`));
+// 用户登录
+Router.post('/login', (req, res) => {
+  const { user, pwd } = req.body;
+  User.findOne({ user, pwd: md5Pwd(pwd) }, (err, doc) => {
+    if (!doc) {
+      return res.json({ code: 1, msg: '用户名或密码正确' });
+    }
+    return res.json({ code: 0, data: doc });
+  });
+});
 // 用户注册
 Router.post('/register', (req, res) => {
   const { user, pwd, type } = req.body;
