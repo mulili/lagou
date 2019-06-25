@@ -1,17 +1,19 @@
 import Const from '../const';
+import getRedirectPath from '../util/getRedirectPath';
 
 const initState = {
   msg: '',
   user: '',
   pwd: '',
   type: '',
-  isAuth: false
+  isAuth: false,
+  redirectTo: ''
 };
 const user = (state = initState, action) => {
   switch (action.type) {
     case Const.REGISTER_SUCCESS:
       return {
-        ...state, msg: '', isAuth: true, ...action.payload
+        ...state, msg: '', isAuth: true, ...action.payload, redirectTo: getRedirectPath(action.payload)
       };
     case Const.ERROR_MSG:
       return { ...state, msg: action.payload.msg, isAuth: false };

@@ -19,7 +19,7 @@ class AuthRoute extends Component {
     const { history, location } = this.props;
     const publicList = ['/login', '/register'];
     if (publicList.includes(location.pathname)) return;
-    axios.get('./user/info')
+    axios.get('/user/info')
       .then((res) => {
         if (res.status === 200) {
           if (res.data.code === 0) {

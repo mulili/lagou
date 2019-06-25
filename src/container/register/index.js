@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 import {
   List, Button, InputItem, WingBlank, WhiteSpace, Radio
@@ -41,14 +41,15 @@ class Register extends Component {
 
   render() {
     const { type } = this.state;
-    const { msg } = this.props;
+    const { user } = this.props;
     const { RadioItem } = Radio;
     return (
       <div>
         <Logo />
         <WingBlank>
           <List>
-            {msg ? <p className="err-msg">{msg}</p> : null}
+            {user.redirectTo ? <Redirect to={user.redirectTo} /> : null}
+            {user.msg ? <p className="err-msg">{user.msg}</p> : null}
             <InputItem type="text" onChange={value => this.handleChange('user', value)}>用户名</InputItem>
             <WhiteSpace />
             <InputItem type="password" onChange={value => this.handleChange('pwd', value)}>密码</InputItem>
@@ -94,10 +95,10 @@ class Register extends Component {
 Register.propTypes = {
   history: PropTypes.shape().isRequired,
   register: PropTypes.func.isRequired,
-  msg: PropTypes.string.isRequired
+  user: PropTypes.shape().isRequired
 };
 const mapStateToProps = state => ({
-  msg: state.user.msg
+  user: state.user
 });
 const mapDispatchToProps = { register };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Register));
