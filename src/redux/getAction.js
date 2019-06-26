@@ -27,6 +27,8 @@ const login = ({ user, pwd }) => (
             type: Const.LOGIN_SUCCESS,
             payload: res.data
           });
+        } else {
+          dispatch(errorMsg(res.data.msg));
         }
       })
       .catch((err) => {

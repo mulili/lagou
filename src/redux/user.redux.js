@@ -13,11 +13,11 @@ const user = (state = initState, action) => {
   switch (action.type) {
     case Const.REGISTER_SUCCESS:
       return {
-        ...state, msg: '', isAuth: true, ...action.payload, redirectTo: getRedirectPath(action.payload)
+        ...state, msg: '', isAuth: true, ...action.payload, redirectTo: getRedirectPath(action.payload.data)
       };
     case Const.LOGIN_SUCCESS:
       return {
-        ...state, msg: '', isAuth: true, ...action.payload, redirectTo: getRedirectPath(action.payload)
+        ...state, msg: '', isAuth: true, ...action.payload, redirectTo: getRedirectPath(action.payload.data)
       };
     case Const.ERROR_MSG:
       return { ...state, msg: action.payload.msg, isAuth: false };

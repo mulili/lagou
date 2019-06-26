@@ -17,11 +17,11 @@ const md5Pwd = pwd => utils.md5(utils.md5(`${pwd}63235#%^%&^*&fkorsmkfmsf@!#@#$3
 // 用户登录
 Router.post('/login', (req, res) => {
   const { user, pwd } = req.body;
-  User.findOne({ user, pwd: md5Pwd(pwd) }, (err, doc) => {
-    if (!doc) {
-      return res.json({ code: 1, msg: '用户名或密码正确' });
+  User.findOne({ user, pwd: md5Pwd(pwd) }, { pwd: 0, __v: 0 }, (err, data) => {
+    if (!data) {
+      return res.json({ code: 1, msg: '用户名或密码不正确' });
     }
-    return res.json({ code: 0, data: doc });
+    return res.json({ code: 0, data });
   });
 });
 // 用户注册
@@ -36,9 +36,8 @@ Router.post('/register', (req, res) => {
         return res.json({ code: 1, msg: '后台出错了' });
       }
       /* eslint-disable */
-      const { type, avatar } = data._doc;
       /* eslint-enable */
-      return res.json({ code: 0, type, avatar });
+      return res.json({ code: 0, data });
     });
   });
 });
