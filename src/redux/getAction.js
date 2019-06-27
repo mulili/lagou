@@ -32,6 +32,7 @@ const login = ({ user, pwd }) => (
         }
       })
       .catch((err) => {
+        console.log(err);
         dispatch(errorMsg(err.msg));
       });
   }

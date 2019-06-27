@@ -4,7 +4,7 @@ const getRedirectPath = ({ type, avatar }) => {
   并且根据用户是否有头像，确定是否需要跳转到信息完善页面  /boss/info or /genius/info
 */
   let redirectTo = (type === 'genius') ? '/genius' : '/boss';
-  if (!avatar) redirectTo += '/info';
+  if (!avatar) redirectTo += 'info';
   return redirectTo;
 };
 export default getRedirectPath;
