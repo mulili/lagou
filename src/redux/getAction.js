@@ -10,6 +10,41 @@ const errorMsg = msg => ({
   }
 });
 
+// 注册
+const register = ({
+  user, pwd, confirmPwd, type
+}) => (
+  (dispatch) => {
+    // 校验表单输入的数据
+    if (!user || !pwd || !type) {
+      return dispatch(errorMsg('请确保表单填写完整'));
+    }
+    if (pwd !== confirmPwd) {
+      return dispatch(errorMsg('请确保密码输入一致'));
+    }
+    // 表单校验通过，准备向API发送请求
+    dispatch({
+      type: Const.REGISTER_PENDING
+    });
+    const requestBody = { user, pwd, type };
+    return axios.post('/user/register', requestBody)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200 && res.data.code === 0) {
+          dispatch({
+            type: Const.REGISTER_SUCCESS,
+            payload: res.data
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        dispatch(errorMsg(err.msg));
+      });
+  }
+);
+
+// 登录
 const login = ({ user, pwd }) => (
   (dispatch) => {
     // 校验表单输入的数据
@@ -32,41 +67,19 @@ const login = ({ user, pwd }) => (
         }
       })
       .catch((err) => {
-        console.log(err);
         dispatch(errorMsg(err.msg));
       });
   }
 );
-const register = ({
-  user, pwd, confirmPwd, type
-}) => (
 
+
+const getUserInfo = userInfo => (
   (dispatch) => {
-    // 校验表单输入的数据
-    if (!user || !pwd || !type) {
-      return dispatch(errorMsg('请确保表单填写完整'));
-    }
-    if (pwd !== confirmPwd) {
-      return dispatch(errorMsg('请确保密码输入一致'));
-    }
-    // 表单校验通过，准备向API发送请求
     dispatch({
-      type: Const.REGISTER_PENDING
+      type: Const.LOAD_DATA,
+      payload: userInfo
     });
-    const requestBody = { user, pwd, type };
-    return axios.post('/user/register', requestBody)
-      .then((res) => {
-        if (res.status === 200 && res.data.code === 0) {
-          dispatch({
-            type: Const.REGISTER_SUCCESS,
-            payload: res.data
-          });
-        }
-      })
-      .catch((err) => {
-        dispatch(errorMsg(err.msg));
-      });
   }
 );
 
-export { register, login };
+export { register, login, getUserInfo };

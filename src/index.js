@@ -36,7 +36,6 @@ ReactDOM.render(
       <Switch>
         <Route path="/login" exact component={Login} />
         <Route path="/register" component={Register} />
-        {/* <Redirect to="/login" /> */}
       </Switch>
     </Router>
   </Provider>,

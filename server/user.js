@@ -7,6 +7,7 @@ const model = require('./model');
 
 const User = model.getModel('user');
 
+// 过滤返回的数据
 const _filter = { pwd: 0, __v: 0 };
 
 Router.get('/list', (req, res) => (
@@ -23,7 +24,7 @@ Router.post('/login', (req, res) => {
     if (!doc) {
       return res.json({ code: 1, msg: '用户名或密码不正确' });
     }
-    res.cookie('userid', doc._id);
+    res.cookie('userId', doc._id);
     return res.json({ code: 0, data: doc });
   });
 });
@@ -34,13 +35,17 @@ Router.post('/register', (req, res) => {
     if (doc) {
       return res.json({ code: 1, msg: '用户名重复' });
     }
-    return User.create({ user, pwd: md5Pwd(pwd), type }, (e, data) => {
+    // 为了拿到注册之后返回的id
+    const userModel = new User({ user, pwd: md5Pwd(pwd), type });
+    return userModel.save((e, d) => {
       if (e) {
         return res.json({ code: 1, msg: '后台出错了' });
       }
       /* eslint-disable */
+      const { user, type, _id } = d;
       /* eslint-enable */
-      return res.json({ code: 0, data });
+      res.cookie('userId', _id);
+      return res.json({ code: 0, data: { user, type, _id } });
     });
   });
 });
@@ -49,11 +54,11 @@ Router.post('/register', (req, res) => {
 // User.remove({}, () => {});
 // 查询用户 cookie
 Router.get('/info', (req, res) => {
-  const { userid } = req.cookies;
-  if (!userid) {
+  const { userId } = req.cookies;
+  if (!userId) {
     return res.json({ code: 1 });
   }
-  User.findById(userid, _filter, (err, doc) => {
+  User.findById(userId, _filter, (err, doc) => {
     if (err) {
       return res.json({ code: 1, msg: '后台出错了' });
     }
